@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: my_app
+    restart: unless-stopped
+    ports:
+      - "1337:1337"
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
+    volumes:
+      - ./data:/opt/app/data
+    environment:
+      NODE_ENV: production
+    # Enable swap
+    mem_swappiness: 60
+    mem_swap_limit: 4G
+
+volumes:
+  data:
+    driver: local

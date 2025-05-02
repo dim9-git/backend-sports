@@ -1,0 +1,16 @@
+{
+    "collectionName": "components_header_header_links",
+    "info": {
+        "displayName": "Header Link",
+        "icon": "apps"
+    },
+    "options": {},
+    "attributes": {
+        "title": {
+            "type": "string"
+        },
+        "url": {
+            "type": "string"
+        }
+    }
+}

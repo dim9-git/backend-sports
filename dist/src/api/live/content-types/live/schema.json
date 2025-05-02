@@ -1,0 +1,21 @@
+{
+    "kind": "singleType",
+    "collectionName": "lives",
+    "info": {
+        "singularName": "live",
+        "pluralName": "lives",
+        "displayName": "Live"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "title": {
+            "type": "text"
+        },
+        "subtitle": {
+            "type": "string"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "collectionName": "components_shared_seos",
+    "info": {
+        "displayName": "seo",
+        "description": ""
+    },
+    "options": {},
+    "attributes": {
+        "metaTitle": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 70,
+            "required": true
+        },
+        "metaDescription": {
+            "type": "text",
+            "maxLength": 160,
+            "minLength": 3,
+            "required": true
+        }
+    }
+}

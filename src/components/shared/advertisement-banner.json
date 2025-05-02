@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_shared_advertisement_banners",
+  "info": {
+    "displayName": "Advertisement Banner",
+    "icon": "chartBubble",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+    "kind": "collectionType",
+    "collectionName": "tournaments",
+    "info": {
+        "singularName": "tournament",
+        "pluralName": "tournaments",
+        "displayName": "Tournament",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "team1": {
+            "type": "string"
+        },
+        "team2": {
+            "type": "string"
+        },
+        "score1": {
+            "type": "integer"
+        },
+        "score2": {
+            "type": "integer"
+        },
+        "stat": {
+            "type": "enumeration",
+            "enum": [
+                "Final"
+            ]
+        },
+        "date": {
+            "type": "datetime"
+        },
+        "media1": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ]
+        },
+        "media2": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ]
+        },
+        "league": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "api::league.league",
+            "inversedBy": "tournaments"
+        }
+    }
+}

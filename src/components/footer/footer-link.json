@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_footer_footer_links",
+  "info": {
+    "displayName": "Footer Link",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,150 @@
+{
+    "kind": "collectionType",
+    "collectionName": "news",
+    "info": {
+        "singularName": "new",
+        "pluralName": "news",
+        "displayName": "News",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {
+        "i18n": {
+            "localized": true
+        }
+    },
+    "attributes": {
+        "title": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "type": "string",
+            "minLength": 3,
+            "required": true
+        },
+        "description": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "type": "text",
+            "minLength": 3,
+            "required": true,
+            "maxLength": 170
+        },
+        "image": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": [
+                "images"
+            ],
+            "pluginOptions": {
+                "i18n": {
+                    "localized": false
+                }
+            }
+        },
+        "highlight": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": false
+                }
+            },
+            "type": "string",
+            "regex": "^(?:https?:\\/\\/)?(?:www\\.)?(?:youtube\\.com\\/(?:watch\\?v=|embed\\/|v\\/|shorts\\/)|youtu\\.be\\/)([a-zA-Z0-9_-]{11})"
+        },
+        "content": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "type": "dynamiczone",
+            "components": [
+                "content-types.text",
+                "content-types.gallery"
+            ]
+        },
+        "slug": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "type": "uid",
+            "targetField": "title",
+            "required": true,
+            "minLength": 3,
+            "maxLength": 80
+        },
+        "sports": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::sport.sport",
+            "inversedBy": "news"
+        },
+        "categories": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::category.category",
+            "inversedBy": "news"
+        },
+        "seo": {
+            "type": "component",
+            "repeatable": false,
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "component": "shared.seo",
+            "required": false
+        },
+        "external_id": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "type": "uid"
+        },
+        "createTime": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": false
+                }
+            },
+            "type": "datetime"
+        },
+        "awayTeams": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::team.team",
+            "mappedBy": "awayNews"
+        },
+        "homeTeams": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::team.team",
+            "mappedBy": "homeNews"
+        },
+        "contentTypes": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::content-type.content-type",
+            "inversedBy": "news"
+        },
+        "leagues": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::league.league",
+            "mappedBy": "news"
+        }
+    }
+}

@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_content_types_texts",
+  "info": {
+    "displayName": "Text",
+    "icon": "stack",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "blocks",
+      "required": true
+    }
+  }
+}
