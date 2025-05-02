@@ -24,7 +24,9 @@ WORKDIR /opt/app
 COPY --from=build /opt/app ./
 ENV PATH=/opt/node_modules/.bin:$PATH
 
-RUN chown -R node:node /opt/app
+# Add these lines before USER node in final stage
+RUN mkdir -p /opt/app/.tmp && \
+    chown -R node:node /opt/app/.tmp
 USER node
 EXPOSE 1337
 CMD ["npm", "run", "start"]
