@@ -446,6 +446,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
 export interface ApiContactsPageContactsPage extends Struct.SingleTypeSchema {
   collectionName: 'contacts_pages';
   info: {
+    description: '';
     displayName: 'Contacts Page';
     pluralName: 'contacts-pages';
     singularName: 'contacts-page';
@@ -458,12 +459,14 @@ export interface ApiContactsPageContactsPage extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    email: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::contacts-page.contacts-page'
     > &
       Schema.Attribute.Private;
+    phone: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -726,9 +729,42 @@ export interface ApiLeagueLeague extends Struct.CollectionTypeSchema {
 export interface ApiLiveLive extends Struct.SingleTypeSchema {
   collectionName: 'lives';
   info: {
-    displayName: 'Live';
+    description: '';
+    displayName: 'Live Page';
     pluralName: 'lives';
     singularName: 'live';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    banners: Schema.Attribute.Component<'shared.advertisement-banner', true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    live_banner: Schema.Attribute.Component<
+      'shared.advertisement-banner',
+      false
+    >;
+    live_subtitle: Schema.Attribute.String;
+    live_title: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::live.live'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMediaCategoryMediaCategory
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'media_categories';
+  info: {
+    displayName: 'MediaCategory';
+    pluralName: 'media-categories';
+    singularName: 'media-category';
   };
   options: {
     draftAndPublish: true;
@@ -738,11 +774,47 @@ export interface ApiLiveLive extends Struct.SingleTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::live.live'> &
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::media-category.media-category'
+    > &
       Schema.Attribute.Private;
+    media: Schema.Attribute.Relation<'oneToMany', 'api::media.media'>;
     publishedAt: Schema.Attribute.DateTime;
-    subtitle: Schema.Attribute.String;
-    title: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMediaMedia extends Struct.CollectionTypeSchema {
+  collectionName: 'media_list';
+  info: {
+    description: '';
+    displayName: 'Media';
+    pluralName: 'media-list';
+    singularName: 'media';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    file: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::media.media'> &
+      Schema.Attribute.Private;
+    media_category: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::media-category.media-category'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    thumbnail: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1077,6 +1149,35 @@ export interface ApiTournamentTournament extends Struct.CollectionTypeSchema {
     stat: Schema.Attribute.Enumeration<['Final']>;
     team1: Schema.Attribute.String;
     team2: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTournamentsPageTournamentsPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'tournaments_pages';
+  info: {
+    displayName: 'Tournaments Page';
+    pluralName: 'tournaments-pages';
+    singularName: 'tournaments-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    banner: Schema.Attribute.Component<'shared.advertisement-banner', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::tournaments-page.tournaments-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1600,11 +1701,14 @@ declare module '@strapi/strapi' {
       'api::header.header': ApiHeaderHeader;
       'api::league.league': ApiLeagueLeague;
       'api::live.live': ApiLiveLive;
+      'api::media-category.media-category': ApiMediaCategoryMediaCategory;
+      'api::media.media': ApiMediaMedia;
       'api::new.new': ApiNewNew;
       'api::shared.shared': ApiSharedShared;
       'api::sport.sport': ApiSportSport;
       'api::team.team': ApiTeamTeam;
       'api::tournament.tournament': ApiTournamentTournament;
+      'api::tournaments-page.tournaments-page': ApiTournamentsPageTournamentsPage;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

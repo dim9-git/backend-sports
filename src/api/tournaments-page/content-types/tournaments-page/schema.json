@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "tournaments_pages",
+  "info": {
+    "singularName": "tournaments-page",
+    "pluralName": "tournaments-pages",
+    "displayName": "Tournaments Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "banner": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.advertisement-banner"
+    }
+  }
+}

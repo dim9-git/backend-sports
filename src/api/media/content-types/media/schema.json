@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "media_list",
+  "info": {
+    "singularName": "media",
+    "pluralName": "media-list",
+    "displayName": "Media",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "media_category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::media-category.media-category",
+      "inversedBy": "media"
+    },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "title": {
+      "type": "string"
+    }
+  }
+}

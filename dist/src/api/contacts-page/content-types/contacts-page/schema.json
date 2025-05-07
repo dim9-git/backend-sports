@@ -4,7 +4,8 @@
     "info": {
         "singularName": "contacts-page",
         "pluralName": "contacts-pages",
-        "displayName": "Contacts Page"
+        "displayName": "Contacts Page",
+        "description": ""
     },
     "options": {
         "draftAndPublish": true
@@ -13,6 +14,12 @@
     "attributes": {
         "content": {
             "type": "blocks"
+        },
+        "email": {
+            "type": "string"
+        },
+        "phone": {
+            "type": "string"
         }
     }
 }
