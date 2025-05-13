@@ -570,16 +570,52 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    date: Schema.Attribute.Date;
+    date: Schema.Attribute.DateTime;
     description: Schema.Attribute.Text;
+    external_id: Schema.Attribute.UID;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    league: Schema.Attribute.Relation<'manyToOne', 'api::league.league'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
       Schema.Attribute.Private;
     location: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
     slug: Schema.Attribute.UID<'title'>;
+    teamA: Schema.Attribute.Relation<'oneToOne', 'api::team.team'>;
+    teamAScore: Schema.Attribute.Integer;
+    teamB: Schema.Attribute.Relation<'oneToOne', 'api::team.team'>;
+    teamBScore: Schema.Attribute.Integer;
     title: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<['Final']>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiEventsPageEventsPage extends Struct.SingleTypeSchema {
+  collectionName: 'events_pages';
+  info: {
+    displayName: 'Events Page';
+    pluralName: 'events-pages';
+    singularName: 'events-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    banner: Schema.Attribute.Component<'shared.advertisement-banner', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::events-page.events-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -673,6 +709,7 @@ export interface ApiLeagueLeague extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         minLength: 3;
       }>;
+    events: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>;
     external_id: Schema.Attribute.UID &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -716,10 +753,6 @@ export interface ApiLeagueLeague extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         minLength: 3;
       }>;
-    tournaments: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::tournament.tournament'
-    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1002,6 +1035,7 @@ export interface ApiSportSport extends Struct.CollectionTypeSchema {
           localized: false;
         };
       }>;
+    leagues: Schema.Attribute.Relation<'oneToMany', 'api::league.league'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::sport.sport'>;
     news: Schema.Attribute.Relation<'manyToMany', 'api::new.new'>;
@@ -1023,6 +1057,7 @@ export interface ApiSportSport extends Struct.CollectionTypeSchema {
         maxLength: 80;
         minLength: 3;
       }>;
+    teams: Schema.Attribute.Relation<'oneToMany', 'api::team.team'>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -1112,72 +1147,6 @@ export interface ApiTeamTeam extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         minLength: 3;
       }>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiTournamentTournament extends Struct.CollectionTypeSchema {
-  collectionName: 'tournaments';
-  info: {
-    description: '';
-    displayName: 'Tournament';
-    pluralName: 'tournaments';
-    singularName: 'tournament';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    date: Schema.Attribute.DateTime;
-    league: Schema.Attribute.Relation<'manyToOne', 'api::league.league'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::tournament.tournament'
-    > &
-      Schema.Attribute.Private;
-    media1: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    media2: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    publishedAt: Schema.Attribute.DateTime;
-    score1: Schema.Attribute.Integer;
-    score2: Schema.Attribute.Integer;
-    stat: Schema.Attribute.Enumeration<['Final']>;
-    team1: Schema.Attribute.String;
-    team2: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiTournamentsPageTournamentsPage
-  extends Struct.SingleTypeSchema {
-  collectionName: 'tournaments_pages';
-  info: {
-    displayName: 'Tournaments Page';
-    pluralName: 'tournaments-pages';
-    singularName: 'tournaments-page';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    banner: Schema.Attribute.Component<'shared.advertisement-banner', false>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::tournaments-page.tournaments-page'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1697,6 +1666,7 @@ declare module '@strapi/strapi' {
       'api::contacts-page.contacts-page': ApiContactsPageContactsPage;
       'api::content-type.content-type': ApiContentTypeContentType;
       'api::event.event': ApiEventEvent;
+      'api::events-page.events-page': ApiEventsPageEventsPage;
       'api::footer.footer': ApiFooterFooter;
       'api::header.header': ApiHeaderHeader;
       'api::league.league': ApiLeagueLeague;
@@ -1707,8 +1677,6 @@ declare module '@strapi/strapi' {
       'api::shared.shared': ApiSharedShared;
       'api::sport.sport': ApiSportSport;
       'api::team.team': ApiTeamTeam;
-      'api::tournament.tournament': ApiTournamentTournament;
-      'api::tournaments-page.tournaments-page': ApiTournamentsPageTournamentsPage;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

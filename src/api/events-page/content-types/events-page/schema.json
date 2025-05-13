@@ -1,10 +1,10 @@
 {
   "kind": "singleType",
-  "collectionName": "tournaments_pages",
+  "collectionName": "events_pages",
   "info": {
-    "singularName": "tournaments-page",
-    "pluralName": "tournaments-pages",
-    "displayName": "Tournaments Page"
+    "singularName": "events-page",
+    "pluralName": "events-pages",
+    "displayName": "Events Page"
   },
   "options": {
     "draftAndPublish": true

@@ -85,10 +85,10 @@
       },
       "type": "uid"
     },
-    "tournaments": {
+    "events": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::tournament.tournament",
+      "target": "api::event.event",
       "mappedBy": "league"
     }
   }

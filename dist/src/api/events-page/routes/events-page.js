@@ -1,7 +1,7 @@
 "use strict";
 /**
- * tournaments-page service
+ * events-page router
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const strapi_1 = require("@strapi/strapi");
-exports.default = strapi_1.factories.createCoreService('api::tournaments-page.tournaments-page');
+exports.default = strapi_1.factories.createCoreRouter('api::events-page.events-page');
